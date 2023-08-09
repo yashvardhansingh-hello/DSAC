@@ -66,7 +66,6 @@ int deletion_order_notIMP(struct myarray * a, int index) {
         printf("err'Index out of Bounds.'");
         return 0;
     }
-    
     int val = (a->ptr)[index];
     (a->ptr)[index] = 0;
     int temp = (a->ptr)[a->used_size];
@@ -76,6 +75,24 @@ int deletion_order_notIMP(struct myarray * a, int index) {
     return val;
      
 }
+int deletion_order_IMP(struct myarray * a, int index) {
+    if (a->used_size == 0)
+    {
+        printf("err'Empty Array'");
+        return 0;
+    }
+    
+    if (a->total_size<=(index+1) || index<0)
+    {
+        printf("err'Index out of Bounds.'");
+        return 0;
+    }
+    int temp = (a->ptr)[index];
+    for(int i=index;i<a->used_size-1;i++){
+        (a->ptr)[i] = (a->ptr)[i+1];
+    }a->used_size++;
+    return temp;
+}   
 
 int main(){
     struct myarray marks;
@@ -89,8 +106,10 @@ int main(){
     show(&marks);
     printf("\n\nThe deletion function starts\n\n\n");
     printf("%d", deletion_order_notIMP(&marks, 2));
-    show(&marks
-    );
+    show(&marks);
+    printf("%d", deletion_order_IMP(&marks, 2));
+    show(&marks);
+
 
     return 0;
 }

@@ -44,6 +44,10 @@ struct Node* insert(struct Node* head, int index, int value) {
 
 struct Node* insertAtIndex(struct Node* head, int index, int value) {
     struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    if(!temp){
+        printf("The Memory allocation is not possible.");
+        return temp;
+    }
     temp->data = value;    
     struct Node* prev = head;
     int i = 0;
