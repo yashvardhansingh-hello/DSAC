@@ -9,107 +9,53 @@ struct myarray
 };
 
 
-void createArray(struct myarray*a, int tsize, int usize) {
-    // (*a).total_size = tsize;
-    // (*a).used_size = usize;
-    // (*a).ptr = (int *) malloc(tsize*sizeof(int));
-
-    a->total_size = tsize;
-    a->used_size = usize;
-    a->ptr = (int *) malloc(tsize*sizeof(int));
+void show(int *arr, int n) {
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }printf("\n");
 }
 
-void show(struct myarray *a) {
-    for (int i = 0; i < a-> used_size; i++)
-    {
-        printf("%d\n", (a->ptr)[i]);
+void setValue(int *arr, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Enter Element at Index %d: ", i);
+        scanf("%d", (arr+i));
     }
-    
 }
 
-void setValue(struct myarray *a) {
-    for (int i = 0; i < a->used_size; i++)
-    {
-        printf("Enter Element %d: ", i);
-        scanf("%d", &(a->ptr)[i]);
-    }
-    
-}
-
-void insert_order_notIMP(struct myarray*a, int index, int value) {
-    if (a->used_size == a->total_size) {
-        printf("err'Array is Full'");
-        return ;
-    }
-    if (a->total_size<=(index+1) || index<0)
-    {
+void insert(int* arr, int n, int index, int value) {
+    if (index<0 || index>=n) {
         printf("err'Index out of Bounds.'");
         return ;
     }
-    int temp = (a->ptr)[index];
-    (a->ptr)[index] = value;
-    (a->ptr)[a->used_size] = temp;
-    a->used_size++;
+    for(int i = n-2;i>=index;i--) {
+        arr[i+1] = arr[i];
+    }
+    arr[index] = value;
 }
 
-void insert_order_IMP(struct myarray * a, int index, int value){};
-
-int deletion_order_notIMP(struct myarray * a, int index) {
-    if (a->used_size == 0)
-    {
-        printf("err'Empty Array'");
-        return 0;
-    }
-    
-    if (a->total_size<=(index+1) || index<0)
+int delete(int* arr, int n,  int index) {
+    if (index>=n || index<0)
     {
         printf("err'Index out of Bounds.'");
         return 0;
     }
-    int val = (a->ptr)[index];
-    (a->ptr)[index] = 0;
-    int temp = (a->ptr)[a->used_size];
-    (a->ptr)[a->used_size] = 0;
-    (a->ptr)[index] = temp;
-    a->used_size--;
-    return val;
-     
-}
-int deletion_order_IMP(struct myarray * a, int index) {
-    if (a->used_size == 0)
-    {
-        printf("err'Empty Array'");
-        return 0;
+    int temp = arr[index];
+    for(int i=index;i<n-1;i++){
+        arr[i] = arr[i+1];
     }
-    
-    if (a->total_size<=(index+1) || index<0)
-    {
-        printf("err'Index out of Bounds.'");
-        return 0;
-    }
-    int temp = (a->ptr)[index];
-    for(int i=index;i<a->used_size-1;i++){
-        (a->ptr)[i] = (a->ptr)[i+1];
-    }a->used_size++;
     return temp;
 }   
 
 int main(){
-    struct myarray marks;
-    createArray(&marks, 10, 2);
-    printf("We're running setVal now.\n");
-    setValue(&marks);
-    printf("\n\nThe show function starts\n\n\n");
-    show(&marks);
-    printf("\n\nThe insert function starts\n\n\n");
-    insert_order_notIMP(&marks, 1, 3);
-    show(&marks);
-    printf("\n\nThe deletion function starts\n\n\n");
-    printf("%d", deletion_order_notIMP(&marks, 2));
-    show(&marks);
-    printf("%d", deletion_order_IMP(&marks, 2));
-    show(&marks);
-
-
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    setValue(arr, n);
+    show(arr, n);
+    insert(arr, n, 2, 4);
+    show(arr, n);
+    delete(arr, n, 2);
+    show(arr, n);
     return 0;
 }
