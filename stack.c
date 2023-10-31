@@ -50,15 +50,26 @@ int stackBottom(struct stack* ptr){
     return ptr->arr[0];
 }
 
-int main(){
+struct stack* buildStack(struct stack* s, int size){
+    s->top=-1;
+    s->size = size;
+    s->arr = (int* )malloc(sizeof(int)*s->size);
+    return s;
+}
+
+void main(){
     
     //Allocating Stack
     struct stack* s;
-    s->size = 20;
-    s->top = -1;
-    s->arr = (int*)malloc(sizeof(int)*s->size);
+    s = buildStack(s, 20);
 
-
-
-    return 0;
+    push(s, 5);
+    push(s, 5);
+    push(s, 5);
+    push(s, 5);
+    for (int i = 0; i <= s->top; i++)
+    {
+        printf("%d ", s->arr[i]);
+    }printf("\n");
+    
 }
